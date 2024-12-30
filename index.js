@@ -21,7 +21,8 @@ app.use(
 app.use(bodyParser.json());
 
 // Connect to Database
-connectDB();
+connectDB()
+
 
 app.get('/', (req, res) => {
   res.send('Server is running. Welcome to the API!');
@@ -32,7 +33,11 @@ app.use('/v1/auth', authRoutes);
 app.use('/v1/forms', formRoutes);
 
 // Start the Server
-const PORT = process.env.PORT || 3001;
-app.listen(PORT, () => {
-  console.log(`Server running on http://localhost:${PORT}`);
-});
+if (process.env.NODE_ENV !== 'production') {
+  const PORT = process.env.PORT || 3001;
+  app.listen(PORT, () => {
+    console.log(`Server running on http://localhost:${PORT}`);
+  });
+}
+
+module.exports = app;
