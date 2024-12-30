@@ -1,4 +1,5 @@
 const Form = require('../models/UserForm');
+const FormSubmission = require("../models/FormSubmission");
 
 exports.createForm = async (req, res) => {
   try {
@@ -42,4 +43,35 @@ exports.getFormById = async (req, res) => {
       res.status(500).json({ error: error.message });
     }
   };
+
+
+
+exports.submitForm = async (req, res) => {
+  try {
+    const { formId } = req.params;
+    const submittedData = req.body; 
+    const userId = req.user.id;
+
+    if (!formId || !submittedData) {
+      return res.status(400).json({ error: "Form ID and data are required." });
+    }
+
+    const formSubmission = new FormSubmission({
+      formId,
+      userId,
+      submittedData,
+    });
+
+    await formSubmission.save();
+
+    res.status(201).json({
+      message: "Form submitted successfully!",
+      submission: formSubmission,
+    });
+  } catch (error) {
+    console.error("Error submitting form:", error.message);
+    res.status(500).json({ error: "An error occurred while submitting the form." });
+  }
+};
+
   
