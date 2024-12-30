@@ -10,7 +10,7 @@ const app = express();
 
 app.use(
   cors({
-    origin: ["http://localhost:3000", "https://form-hz07w9cil-amshifs-projects.vercel.app"], 
+    origin: ["http://localhost:3000", "https://form-hz07w9cil-amshifs-projects.vercel.app", "https://form-builder-ui-sigma.vercel.app/","https://form-builder-ui-amshifs-projects.vercel.app/"], 
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
   })
