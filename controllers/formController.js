@@ -74,4 +74,16 @@ exports.submitForm = async (req, res) => {
   }
 };
 
+exports.getUserSubmissions = async (req, res) => {
+  try {
+    const userId = req.user.id; 
+
+    
+    const submissions = await FormSubmission.find({ userId }).populate("formId", "title");
+
+    res.status(200).json(submissions);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
   
